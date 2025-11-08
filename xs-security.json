@@ -1,0 +1,20 @@
+{
+  "xsappname": "timecap-xsappname",
+  "tenant-mode": "dedicated",
+  "scopes": [],
+  "attributes": [],
+  "role-templates": [],
+  "authorities-inheritance": false,
+  "oauth2-configuration": {
+    "credential-types": [
+      "instance-secret",
+      "binding-secret",
+      "x509"
+    ],
+    "redirect-uris": [
+      "http://localhost:5000/",
+      "https://*.applicationstudio.cloud.sap/**",
+      "https://*.us10-001.hana.ondemand.com/**"
+    ]
+  }
+}

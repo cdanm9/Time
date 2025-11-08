@@ -1,0 +1,179 @@
+{
+  "_version": "1.76.0",
+  "sap.app": {
+    "id": "com.sap.capsuleapp",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.19.3",
+      "toolsId": "384bcedd-f4fa-404d-a139-a42bc3ef14b2"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/time/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "timecap-store": {
+          "semanticObject": "timecap",
+          "action": "store",
+          "title": "{{timecap-store.flpTitle}}",
+          "subTitle": "{{timecap-store.flpSubtitle}}",
+          "icon":"sap-icon://future",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.142.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.sap.capsuleapp.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "CapsulesList",
+          "target": "CapsulesList"
+        },
+        {
+          "pattern": "Capsules({key}):?query:",
+          "name": "CapsulesObjectPage",
+          "target": "CapsulesObjectPage"
+        },
+        {
+          "pattern": "Capsules({key})/to_attachments({key2}):?query:",
+          "name": "AttachmentsObjectPage",
+          "target": "AttachmentsObjectPage"
+        }
+      ],
+      "targets": {
+        "CapsulesList": {
+          "type": "Component",
+          "id": "CapsulesList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Capsules",
+              "variantManagement": "Page",
+              "navigation": {
+                "Capsules": {
+                  "detail": {
+                    "route": "CapsulesObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CapsulesObjectPage": {
+          "type": "Component",
+          "id": "CapsulesObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Capsules",
+              "navigation": {
+                "to_attachments": {
+                  "detail": {
+                    "route": "AttachmentsObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "AttachmentsObjectPage": {
+          "type": "Component",
+          "id": "AttachmentsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Capsules/to_attachments"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}
